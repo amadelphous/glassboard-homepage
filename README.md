@@ -1,6 +1,5 @@
-====================================================
- STARTPAGE — README
-====================================================
+## STARTPAGE — README
+
 
 A custom browser start page / new tab page. Fully static —
 no build steps, no dependencies, no accounts required.
