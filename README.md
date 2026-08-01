@@ -70,7 +70,7 @@ To customize:
 
 You'll need to source your own icons — they are **not** included/generated for you. `.svg` is recommended since it's vector-based and scales cleanly at any size, but other image formats (`.png`, `.jpg`) will also work.
 
-Place icon files in the `/svg/` folder to match the existing structure. When replacing the icons, make sure the filepath is correct — if they're in the `/svg/` folder, it will be `/svg/file.svg`.
+Place icon files in the `./svg/` folder to match the existing structure. When replacing the icons, make sure the filepath is correct — if they're in the `/svg/` folder, it will be `./svg/file.svg`.
 
 ---
 
