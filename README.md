@@ -2,6 +2,8 @@
 
 A custom browser start page / new tab page. Fully static — no build steps, no dependencies, no accounts required.
 
+![Startpage Preview](startpage.png)
+
 ---
 
 ## 1. Getting Started
