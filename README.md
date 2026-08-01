@@ -2,7 +2,7 @@
 
 A custom browser start page / new tab page. Fully static — no build steps, no dependencies, no accounts required.
 
-![Startpage Preview](startpage.png)
+![Startpage Preview](./.assets/startpage.png)
 
 ---
 
@@ -81,6 +81,8 @@ Place icon files in the `./svg/` folder to match the existing structure. When re
 Click the weather widget to open a popup where you can enter new coordinates (latitude, longitude), then refresh the page.
 
 By default this repo ships with coordinates set to Paris, France as a neutral placeholder — change it to your own location the first time you use it. Alternatively, you can also change the default coordinates from Paris to another location by editing them in `weather.js`.
+
+![Modal Preview](./.assets/modal.png)
 
 **Units:** Temperatures default to Celsius. To switch to Fahrenheit, open `weather.js` and:
 1. Add `&temperature_unit=fahrenheit` to the end of the API URL inside `updateWeather()`.
