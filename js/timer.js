@@ -118,3 +118,21 @@ window.addEventListener('storage', (e) => {
 
 setInterval(updateTimerUI, 500);
 updateTimerUI();
+
+// This script and its functions are what enables the timer to update and function properly.
+// It can be edited if you want to change the format of the timer, 
+// but it is not recommended to change it unless you know what you are doing.
+// Breaking this function will cause the timer to stop working and will require
+// grabbing a clean copy of timer.js from the repository and replacing the broken
+// one with it.
+
+// Note: The timer state is stored in localStorage under the key 'startpage_timer_state_v1'.
+// Note 2: The timer supports Picture-in-Picture (PiP) mode, which allows the timer 
+// to be displayed in a small overlay window while you work in other tabs or applications.
+// Note 3: The timer state is synchronized across multiple tabs in real-time. If you start, 
+// pause, or reset the timer in one tab, the changes will be reflected in 
+// all other open tabs of the same origin.
+
+// IMPORTANT: This script is one of the core functionalities, using six functions and a few event 
+// listeners to manage the timer's state, display, and PiP functionality. It is very easy to
+// break the timer by editing this script.

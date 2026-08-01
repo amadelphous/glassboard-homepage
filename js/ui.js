@@ -23,3 +23,9 @@ window.addEventListener('scroll', () => {
     timerPanel?.classList.remove('hidden');
   }
 });
+
+// This function is what enables the UI to update and function properly.
+// I seriously recommend not editing this function even if you know what you are doing.
+// Breaking this function will cause the UI to stop working as a whole and will
+// require grabbing a clean copy of ui.js from the repository and replacing the broken
+// one with it. Breaking this function subsequently breaks everything else tied to it.

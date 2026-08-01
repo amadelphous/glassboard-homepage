@@ -110,3 +110,22 @@ document.addEventListener('DOMContentLoaded', () => {
   updateWeather();
   setInterval(updateWeather, 15 * 60 * 1000);
 });
+
+// This script and its functions control the weather widget and location modal.
+// They can be edited if you want to change the behavior of the weather widget or modal, 
+// but it is not recommended to change them unless you know what you are doing. 
+// Breaking these functions will cause the weather widget and modal to stop working
+// and will require grabbing a clean copy of weather.js from the repository and
+// replacing the broken one with it.
+
+// Note: A part of this function is wrapped in a DOMContentLoaded event listener 
+// to ensure that the DOM nodes are accessible when the script runs.
+
+// Note 2: The weather widget fetches data from the Open-Meteo API. 
+// If the API changes or becomes unavailable, the widget may stop working.
+
+// Note 3: The location modal allows users to input their latitude and longitude to 
+// customize the weather data displayed. The default location is set to 
+// Paris, France (48.8566, 2.3522). You can change the fallback by editing lines
+// of this file near the top. DEFAULT_LAT is the default latitude and DEFAULT_LON is 
+// the default longitude.
