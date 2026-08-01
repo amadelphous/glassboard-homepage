@@ -153,7 +153,7 @@ License (OFL). The font file (outfit_variable.ttf) is included
 in this repo and referenced via @font-face in startpage.css —
 don't delete or move it without also updating that reference.
 
-See OFL.txt (if included) for the full font license text.
+See OFL.txt for the full font license text.
 
 
 ----------------------------------------------------
