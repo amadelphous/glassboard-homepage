@@ -76,11 +76,17 @@ Place icon files in the `./svg/` folder to match the existing structure. When re
 
 ---
 
-## 5. Changing the Weather Location
+## 5. Changing the Weather Widget
 
 Click the weather widget to open a popup where you can enter new coordinates (latitude, longitude), then refresh the page.
 
 By default this repo ships with coordinates set to Paris, France as a neutral placeholder — change it to your own location the first time you use it. Alternatively, you can also change the default coordinates from Paris to another location by editing them in `weather.js`.
+
+**Units:** Temperatures default to Celsius. To switch to Fahrenheit, open `weather.js` and:
+1. Add `&temperature_unit=fahrenheit` to the end of the API URL inside `updateWeather()`.
+2. Change both `°C` strings (the current temp line, and the `H:`/`L:` line right below it) to `°F`.
+
+Both steps are required — changing only the label without changing the API call will display Fahrenheit-range numbers mislabeled as Celsius, or vice versa.
 
 ---
 

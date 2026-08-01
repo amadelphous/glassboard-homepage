@@ -71,7 +71,7 @@ reference in startpage.css, marked by the comment, in the body's background-imag
 Quick links live in startpage.html. Each one looks like this:
 
   <a class="quicklink" href="https://www.website.com" title="Website" draggable="false">
-    <div class="icon-square"><img src="svg\website.svg" alt="Website" draggable="false"></div>
+    <div class="icon-square"><img src="svg/website.svg" alt="Website" draggable="false"></div>
     <span class="label">Website</span>
   </a>
 
@@ -92,7 +92,7 @@ the filepath is correct. If they're in the /svg/ folder, it will be
 
 
 ----------------------------------------------------
- 5. CHANGING THE WEATHER LOCATION
+ 5. CHANGING THE WEATHER WIDGET
 ----------------------------------------------------
 
 Click the weather widget to open a popup where you can enter
@@ -103,6 +103,17 @@ France as a neutral placeholder — change it to your own
 location the first time you use it. Alternatively, you can
 also change the default coordinates from Paris to another
 location by editing them in "weather.js".
+
+Units: 
+Temperatures default to Celsius. To switch to Fahrenheit, 
+open `weather.js` and:
+1. Add `&temperature_unit=fahrenheit` to the end of the API URL inside `updateWeather()`.
+2. Change both `°C` strings (the current temp line, and the `H:`/`L:` 
+line right below it) to `°F`.
+
+Both steps are required — changing only the label without 
+changing the API call will display Fahrenheit-range numbers 
+mislabeled as Celsius, or vice versa.
 
 
 ----------------------------------------------------

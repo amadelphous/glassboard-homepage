@@ -129,3 +129,11 @@ document.addEventListener('DOMContentLoaded', () => {
 // Paris, France (48.8566, 2.3522). You can change the fallback by editing lines
 // of this file near the top. DEFAULT_LAT is the default latitude and DEFAULT_LON is 
 // the default longitude.
+
+// Note 4: Temperature units default to Celsius, pulled from the Open-Meteo
+// API's default behavior. To switch to Fahrenheit, add
+// "&temperature_unit=fahrenheit" to the URL inside updateWeather(),
+// AND change both "°C" strings below (the current temp and the H:/L: line)
+// to "°F". Changing only one half will mislabel the numbers.
+// Working Example: 
+// `const url = https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=auto&temperature_unit=fahrenheit';
