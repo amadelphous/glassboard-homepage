@@ -2,6 +2,8 @@
 
 A custom browser start page / new tab page. Fully static — no build steps, no dependencies, no accounts required.
 
+NOTE: If you wanna try out Startpage in your browser without installing it to your machine first, you can do so on [this page](amadelphous.github.io/glassboard-homepage] whenever you want to. Alternatively, if you don't want to local host, you can just set `amadelphous.github.io/glassboard-homepage` as your default browser homepage!
+
 ![Startpage Preview](./.assets/startpage.png)
 
 ---
