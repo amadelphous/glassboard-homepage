@@ -1,6 +1,7 @@
 # 🗺️ Project Roadmap
 
 Current Version: v1.3
+
 Next Projected Version: v2.0
 
 ---
