@@ -1,5 +1,7 @@
 # Startpage — README
 
+## 🚧🚧 v2.0 is currently in active development! Check out the [roadmap](/ROADMAP.md) to see what's being built. 🚧🚧
+
 A custom browser start page / new tab page. Fully static — no build steps, no dependencies, no accounts required.
 
 NOTE: If you wanna try out Startpage in your browser without installing it to your machine first, you can do so on [this page](https://amadelphous.github.io/glassboard-homepage) whenever you want to. Alternatively, if you don't want to local host, you can just set `https://amadelphous.github.io/glassboard-homepage` as your default browser homepage!
