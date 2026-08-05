@@ -1,6 +1,6 @@
 # Startpage — README
 
-## 🚧🚧 v2.0 is currently in active development! Check out the [roadmap](/ROADMAP.md) to see what's being built. 🚧🚧
+🚧🚧 v2.0 is currently in active development! Check out the [roadmap](/ROADMAP.md) to see what's being built. 🚧🚧
 
 A custom browser start page / new tab page. Fully static — no build steps, no dependencies, no accounts required.
 
