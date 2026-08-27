@@ -1,13 +1,20 @@
 # 🗺️ Project Roadmap
 
+<<<<<<< HEAD
 Current Version: v1.3
 
 Next Projected Version: v2.0
+=======
+Current Version: v2.0
+
+Next Projected Version: v2.1
+>>>>>>> beta
 
 ---
 
 ## 🛠️ In Progress
 
+<<<<<<< HEAD
 - [x] **Event-Driven UI Overhauls:** Fixed hover states and scroll-suppression logic via dynamic DOM checks, improved logic and `.is-scrolled` states for certain events.
 - [x] **Fluid Scaling System:** Replacing static `px` based layouts with dynamic limits to ensure the UI scales seamlessly across everything from laptops to ultrawide monitors.
 - [x] **Dynamic Component Refactor:** Converting main layout blocks (clock, search, control elements) to the new fluid sizing system.
@@ -17,6 +24,13 @@ Next Projected Version: v2.0
 - [ ] **New Features:** New widgets and fresh functionality, including maybe a news feed?
 - [ ] **Other Improvements:** Fixing and streamlining janky code bits to work better and be more reliable overall.
 - [ ] **Easter Egg:** 👀?
+=======
+- [ ] **New Quicklinks:** The ability to edit the five present quicklinks from within the Startpage itself, with the SVG icons being sourced externally.
+- [ ] **Fluid Scaling System v2.0:** Further tweaking and perfecting the dynamic scaling of page elements to ensure everybody can use it.
+- [ ] **Dynamic Component Refactor:** Converting main layout blocks (clock, search, control elements) to the new fluid sizing system.
+- [ ] **Settings Modal Work:** Adding more customization options to the settings menu to ensure everyone can tweak the Startpage to their liking!
+- [ ] **More Widgets:** Testing out a few new ideas for widgets alongside the current timer and weather, all of which will be on a toggle switch in case you want to disable/enable any of them.
+>>>>>>> beta
 
 ---
 

@@ -1,0 +1,57 @@
+/* ---------------------------------------------------------------------
+   WEATHER WIDGET
+   ---------------------------------------------------------------------
+   Current temperature, high/low, and description, pinned to the
+   top-right corner of the hero section. Top and right use the same
+   clamp() offset, so it sits an equal, responsive distance from both
+   edges. This widget is independent from the settings button below —
+   they just happen to be styled next to each other in this file. */
+#weather {
+  position: absolute;
+  top: clamp(24px, 2vh + 15px, 36px);
+  right: clamp(24px, 2vh + 15px, 36px);
+  text-align: center;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  padding: clamp(10px, 0.8vh + 4px, 14px) clamp(10px, 0.6vw + 4px, 14px);
+  border-radius: clamp(14px, 0.8vw + 6px, 18px);
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+/* The large temperature readout. */
+#weather-temp {
+  font-size: clamp(1.25rem, 0.71vw + 1.1rem, 2rem);
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* High/low subtext line. */
+#weather-highlow {
+  font-size: clamp(0.75rem, 0.2vw + 0.65rem, 0.95rem);
+  font-weight: 600;
+  opacity: 0.85;
+  margin-top: clamp(2px, 0.2vh + 1px, 4px);
+}
+
+/* Weather description subtext line (e.g. "Partly cloudy"). */
+#weather-desc {
+  font-size: clamp(0.75rem, 0.2vw + 0.75rem, 0.95rem);
+  font-weight: 600;
+  opacity: 0.9;
+  margin-top: clamp(1px, 0.2vh, 3px);
+}
+
+/* City name display inside the main weather widget card */
+.weather-city {
+  font-size: clamp(0.85rem, 0.3vw + 0.75rem, 1.1rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  opacity: 0.95;
+  margin-bottom: clamp(2px, 0.2vh + 1px, 4px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -12,9 +12,5 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 
-// This function is what enables the clock to update and function properly.
-// It can be edited if you want to change the format of the clock or date, 
-// but it is not recommended to change it unless you know what you are doing.
-// Breaking this function will cause the clock to stop working and will require
-// grabbing a clean copy of clock.js from the repository and replacing the broken
-// one with it.
+// Updates both clock readouts. Change the formatting here if the page should
+// use a different time or date presentation.

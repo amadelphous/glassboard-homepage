@@ -1,0 +1,78 @@
+/* ---------------------------------------------------------------------
+   SETTINGS TRIGGER ZONE & GEAR BUTTON
+   ---------------------------------------------------------------------
+   An invisible hotzone covering the bottom-right 20% of the viewport's
+   width and height. Hovering anywhere inside it reveals the settings
+   gear button (.settings-btn); the zone itself stays fully transparent
+   so it only exists to widen the button's effective hover target. */
+.settings-trigger-zone {
+  position: absolute;
+  right: 0;
+  top: 80vh;
+  width: 20vw;
+  height: 20vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+/* The gear/settings button itself. Hidden until the trigger zone (or the
+   button, see :hover below) is hovered. */
+.settings-btn {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: absolute;
+  right: 2vh;
+  bottom: 2vh;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.25s ease, transform 0.25s ease, background 0.2s ease;
+}
+
+/* Fades the button in (partially) when hovering anywhere in the trigger
+   zone around it. */
+.settings-trigger-zone:hover .settings-btn {
+  opacity: 0.6;
+  transform: scale(1);
+}
+
+/* Fully hides the trigger zone (and the button inside it) once the page
+   has scrolled past the hero section. The !important flags win out over
+   the hover rules above, which would otherwise still apply while the
+   cursor sits in the same screen area post-scroll. */
+.settings-trigger-zone.is-scrolled {
+  pointer-events: none !important;
+  display: none !important;
+  opacity: 0 !important;
+}
+
+.settings-trigger-zone.is-scrolled .settings-btn {
+  pointer-events: none !important;
+  display: none !important;
+  opacity: 0 !important;
+}
+
+/* Hovering the button directly brings it to full opacity. This needs
+   !important because .settings-trigger-zone:hover .settings-btn (above)
+   is more specific and would otherwise win while the cursor is over the
+   button, which also counts as hovering its parent zone. */
+.settings-btn:hover {
+  opacity: 1 !important;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Pressed feedback. */
+.settings-btn:active {
+  transform: scale(0.95);
+}

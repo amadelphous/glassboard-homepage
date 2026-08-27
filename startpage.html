@@ -1,29 +1,100 @@
 <!DOCTYPE html>
-<!-- This part of the HTML file defines the basic functionality and structure
-of the file, including scale and styling. I suggest not modifying
-the structure unless you know what you're doing.-->
+<!-- The document structure is intentionally kept in sync with the selectors
+  used by the CSS and scripts below. -->
 <html lang="en">
 <head>
+<script>
+  (function() {
+    var path = localStorage.getItem('startpage_wallpaper_path') || './wallpapers/wallpaper_sunsetglow.jpg';
+    var absPath = new URL(path, document.baseURI).href;
+    document.documentElement.style.setProperty('--background-image', 'url("' + absPath + '")');
+
+    var img = new Image();
+    img.src = path;
+
+    var lifted = false;
+    function liftCurtain() {
+      if (lifted) return; // Prevent double-execution
+      
+      var veil = document.getElementById('boot-veil');
+      
+      // If DOM isn't ready yet for #boot-veil, wait for DOMContentLoaded
+      if (!veil) {
+        document.addEventListener('DOMContentLoaded', liftCurtain, { once: true });
+        return;
+      }
+
+      lifted = true;
+      veil.style.opacity = '0';
+      
+      setTimeout(function() {
+        if (veil && veil.parentNode) {
+          veil.remove();
+        }
+      }, 550);
+    }
+
+    // 1. Check if image is ALREADY completed (cached in RAM)
+    if (img.complete) {
+      // Small delay ensures DOM parsing has caught up to the <body> tag
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', liftCurtain, { once: true });
+      } else {
+        liftCurtain();
+      }
+    } 
+    // 2. Otherwise try decode() or onload
+    else if ('decode' in img) {
+      img.decode().then(liftCurtain).catch(liftCurtain);
+    } else {
+      img.onload = liftCurtain;
+    }
+
+    // 3. THE SAFETY NET: If everything else weirds out, kill it after 200ms max
+    setTimeout(liftCurtain, 500);
+  })();
+</script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>New tab</title>
   <link rel="icon" type="image/svg+xml" href="svg/topbar.svg">
-  <link rel="stylesheet" href="startpage.css">
+    <!-- Separate stylesheet links allow the browser to discover each CSS file
+      without waiting for an @import chain. -->
+  <link rel="stylesheet" href="./css/base.css">
+  <link rel="stylesheet" href="./css/hero.css">
+  <link rel="stylesheet" href="./css/timer.css">
+  <link rel="stylesheet" href="./css/weather.css">
+  <link rel="stylesheet" href="./css/settings-button.css">
+  <link rel="stylesheet" href="./css/search.css">
+  <link rel="stylesheet" href="./css/quicklinks.css">
+  <link rel="stylesheet" href="./css/modal.css">
+  <link rel="stylesheet" href="./css/weather-settings.css">
 </head>
 <body>
+  <div id="boot-veil" style="
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #000;
+      z-index: 99999;
+      pointer-events: none;
+      transition: opacity 0.4s ease-out;
+      opacity: 1;
+    "></div>  
 
-  <!-- HERO SECTION (Top Main Screen) -->
+    <!-- Primary viewport: weather, clock, search, and quick links. -->
   <main class="hero-container">
-  <!-- This is the main section of the startpage, where the weather, clock, search bar, 
-  and quicklinks are located. Again, I recommend not modifying the structure unless 
-  you know what you're doing. This doesn't apply to the quicklinks, which need modifying
-  to be replaced. A tutorial on how to modify them is provided below. -->
+    <!-- Keep these element IDs stable: the scripts use them to update the
+      clock, weather, search controls, and quick links. -->
 
     <!-- WEATHER -->
     <div id="weather">
-      <button id="weather-settings-btn" title="Change Location" aria-label="Change Location">
+      <!-- <button id="weather-settings-btn" title="Change Location" aria-label="Change Location">
         <img src="svg/gear.svg" alt="" class="weather-gear-icon" draggable="false">
-      </button>
+      </button> -->
       <div id="weather-temp">--°C</div>
       <div id="weather-highlow">H: --° L: --°</div>
       <div id="weather-desc">Loading weather...</div>
@@ -45,11 +116,8 @@ the structure unless you know what you're doing.-->
     </form>
 
     <!-- QUICKLINKS -->
-    <!-- Here you can change the five quicklinks present below the search bar.
-    Simply change the <href> attribute of each link to whatever link you want it to
-    point to instead. Make sure the title and label attributes are updated accordingly. 
-    You can also replace the icons with your own by swapping the SVG files. I don't recommend
-    modifying the number of links present to not mess up the layout. -->
+        <!-- Customize quick links by changing each href, title, label, or icon
+          path. Keep the number of links compatible with the grid layout. -->
     <div id="links">
       <a class="quicklink" href="https://www.youtube.com" title="YouTube" draggable="false">
         <div class="icon-square"><img src="svg/youtube.svg" alt="YouTube" draggable="false"></div>
@@ -75,53 +143,96 @@ the structure unless you know what you're doing.-->
 
   </main>
 
-  <!-- TIMER PANEL & INTEGRATED TOGGLE -->
-  <div id="timer-panel">
-    <button id="timer-toggle" class="tab-toggle-btn" title="Toggle timer" aria-label="Toggle timer">&#8250;</button>
-    <span class="tab-label">
-      <img src="svg/timer.svg" alt="Timer" class="tab-label-icon" draggable="false">
-    </span>
+<!-- TIMER PANEL & INTEGRATED TOGGLE -->
+<div id="timer-panel">
 
-    <div class="timer-inner">
-      <div id="timer-display">00:00:00</div>
-      <div class="timer-controls">
-        <div class="timer-btn-row">
-          <button class="timer-btn" id="timer-start">Start</button>
-          <button class="timer-btn" id="timer-pause">Pause</button>
-        </div>
-        <div class="timer-btn-row">
-          <button class="timer-btn" id="timer-reset">Reset</button>
-          <button class="timer-btn" id="timer-pip" title="Picture-in-Picture">PiP</button>
-        </div>
+    <!-- The toggle controls the drawer; its background is supplied by the
+      parent panel so the glass surface has one continuous edge. -->
+  <button id="timer-toggle" title="Toggle timer" aria-label="Toggle timer">
+    &#8250;
+  </button>
+
+  <!-- This icon identifies the collapsed timer drawer. -->
+  <img src="svg/timer.svg" alt="Timer" id="timer-label-icon" draggable="false">
+
+  <div class="timer-inner">
+    <input
+      type="text"
+      id="timer-display"
+      value="00:00:00"
+      placeholder="00:00:00"
+      autocomplete="off"
+      spellcheck="false"
+    />
+    <div class="timer-controls">
+      <div class="timer-btn-grid">
+        <button class="timer-btn" id="timer-start">Start</button>
+        <button class="timer-btn" id="timer-pause">Pause</button>
+        <button class="timer-btn" id="timer-reset">Reset</button>
+        <button class="timer-btn" id="timer-pip">PiP</button>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- LOCATION SETTINGS MODAL -->
-  <div id="location-modal" class="modal-overlay hidden">
-    <div class="modal-card">
-      <h3>Enter new coordinates (Latitude, Longitude):</h3>
-      <input type="text" id="modal-coords-input" placeholder="e.g. 48.8566, 2.3522" autocomplete="off">
-      <div class="modal-actions">
-        <button id="modal-save-btn" class="modal-btn save">OK</button>
-        <button id="modal-cancel-btn" class="modal-btn cancel">Cancel</button>
-      </div>
+  <!-- Hover target for the settings button. -->
+  <div class="settings-trigger-zone">
+    <button id="settings-btn" class="settings-btn" title="Settings" aria-label="Open Settings">
+      <img src="svg/gear_white.svg" alt="Settings" class="settings-gear-icon" draggable="false" width="20" height="20">
+    </button>
+  </div>
+
+  <dialog id="settings-modal" class="settings-modal">
+  <div class="modal-header">
+    <h3>Settings</h3>
+    <button id="close-x-btn" class="close-x-btn" aria-label="Close" type="button">&times;</button>
+  </div>
+
+  <div class="modal-main">
+    <!-- Settings section navigation. -->
+    <nav class="modal-sidebar">
+      <button class="nav-item" data-panel="wallpaper">
+        <span class="nav-icon"><img src="svg/wallpaper.svg" alt="Wp"></span> Wallpaper
+      </button>
+      <button class="nav-item" data-panel="weather">
+        <span class="nav-icon"><img src="svg/weather.svg" alt="We"></span> Weather
+      </button>
+      <button class="nav-item active" data-panel="about">
+        <span class="nav-icon"><img src="svg/about.svg" alt="Ab"></span> About
+      </button>
+    </nav>
+
+    <!-- One panel is active at a time. -->
+    <div class="modal-content">
+
+      <section class="settings-panel" data-panel="wallpaper">
+        <div id="wallpaper-grid" class="wallpaper-grid"></div>
+      </section>
+
+      <section class="settings-panel" data-panel="weather">
+        <div id="weather-settings-panel"></div>
+      </section>
+
+      <section class="settings-panel active" data-panel="about">
+        <div id="about-panel"></div>
+      </section>
     </div>
   </div>
 
-  <!-- SCRIPTS -->
+  <div class="modal-footer">
+  <button id="cancel-btn" class="btn btn-secondary" type="button">Cancel</button>
+  <button id="save-btn" class="btn btn-primary" type="button">Save & Exit</button>
+  </div>
+</dialog>
+
+  <!-- Scripts are loaded in dependency order. -->
   <script src="js/clock.js"></script>
   <script src="js/weather.js"></script>
   <script src="js/ui.js"></script>
   <script src="js/timer.js"></script>
-  <!-- SCRIPTS -->
-  <!-- These are calls for the four main JavaScript files that handle
-  the core functionality of the page (clock, weather, UI, timer). Do not modify
-  this stack in any way shape or form, otherwise elements of the page will NOT function
-  correctly or outright stop working.-->
-
-  <!-- NOTE: The scripts are loaded in the order they are listed. Changing the order 
-   may cause issues with the functionality of the page. -->
-
+  <script src="js/modal.js"></script>
+  <script src="js/wallpapers.js"></script>
+  <script src="js/weather_settings.js"></script>
+  <script src="js/about.js"></script>
 </body>
 </html>

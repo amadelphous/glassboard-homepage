@@ -1,0 +1,60 @@
+/* ---------------------------------------------------------------------
+   QUICKLINKS
+   ---------------------------------------------------------------------
+   Row of shortcut tiles shown below the search bar. #links is the flex
+   container that wraps and centers the individual .quicklink items. */
+#links {
+  display: flex;
+  gap: clamp(12px, 1vw + 3px, 18px);
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+/* One quicklink: icon tile + text label stacked vertically. Lifts up
+   slightly on hover (see :hover rule below). */
+.quicklink {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #fff;
+  width: clamp(65px, 4vw + 20px, 80px);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  transition: transform 0.15s ease;
+}
+
+.quicklink:hover {
+  transform: translateY(-10px) !important;
+}
+
+/* The rounded-square tile behind each quicklink's favicon. */
+.icon-square {
+  width: clamp(44px, 3vw + 10px, 54px);
+  height: clamp(44px, 3vw + 10px, 54px);
+  border-radius: clamp(10px, 1vw, 16px);
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* Text label under each quicklink tile (e.g. site name). */
+.quicklink span.label {
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+/* Favicon/logo image, sized to fit inside its .icon-square tile. */
+.icon-square img {
+  width: 50%;
+  height: 50%;
+  object-fit: contain;
+}

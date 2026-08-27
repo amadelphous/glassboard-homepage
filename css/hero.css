@@ -1,0 +1,87 @@
+/* ---------------------------------------------------------------------
+   HERO SECTION
+   ---------------------------------------------------------------------
+   The clock, date, search bar, and quicklinks all live inside this
+   container. Stacks its children in a centered column with a responsive
+   gap between them. */
+.hero-container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(24px, 3.5vh + 6px, 38px);
+  position: relative;
+}
+
+/* Wraps the clock + date so the timer-mirror pill (#timer-mirror, below)
+   has a positioning anchor to float above. */
+#clock-block {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ---------------------------------------------------------------------
+   TIMER MIRROR
+   ---------------------------------------------------------------------
+   Small floating pill above the clock that mirrors the countdown timer's
+   remaining time, so it's still visible when the #timer-panel drawer is
+   closed or scrolled out of view. Hidden by default (opacity/visibility/
+   pointer-events); JS toggles the `.visible` class below to reveal it. */
+#timer-mirror {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  white-space: nowrap;
+  font-size: clamp(1rem, 0.75rem + 0.33vw, 1.30rem);
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-variant-numeric: tabular-nums;
+  padding: clamp(6px, 0.8vh + 2px, 10px) clamp(12px, 1vw + 5px, 24px);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(-50%, 6px);
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+
+/* Revealed state (class toggled by JS): fades and slides the pill up
+   into view above the clock. */
+#timer-mirror.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+/* Large central clock readout (e.g. "14:32"). Inherits the page's
+   "Outfit" font-family from body. */
+#clock {
+  font-size: clamp(3rem, 2rem + 3vw, 4.8rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+/* Date line displayed underneath the clock. */
+#date {
+  font-size: clamp(0.95rem, 0.85rem + 0.3vw, 1.15rem);
+  font-weight: 600;
+  opacity: 0.9;
+  line-height: 1;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}

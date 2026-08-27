@@ -1,140 +1,98 @@
-# Startpage — README
+# Startpage
 
-🚧🚧 v2.0 is currently in active development! Check out the [roadmap](/ROADMAP.md) to see what's being built. 🚧🚧
+Startpage is a customizable browser start page and new-tab dashboard. It is a fully static project: there is no build step, package manager, backend, account, or installation process.
 
-A custom browser start page / new tab page. Fully static — no build steps, no dependencies, no accounts required.
+Check out the development on the [roadmap](./ROADMAP.md)!
 
-NOTE: If you wanna try out Startpage in your browser without installing it to your machine first, you can do so on [this page](https://amadelphous.github.io/glassboard-homepage) whenever you want to. Alternatively, if you don't want to local host, you can just set `https://amadelphous.github.io/glassboard-homepage` as your default browser homepage!
+![Startpage](./.assets/startpage.png)
 
-![Startpage Preview](./.assets/startpage.png)
+## Features
 
----
+- Live 24-hour clock and date display.
+- Weather widget with current conditions and today's high/low temperatures.
+- Searchable city selection powered by the Open-Meteo Geocoding API.
+- Celsius and Fahrenheit temperature units.
+- Optional city name shown above the weather widget.
+- 30 bundled wallpapers, selectable from the Wallpaper tab.
+- Quick links for frequently visited sites.
+- Collapsible timer panel with stopwatch and countdown modes.
+- Browser Picture-in-Picture timer display where supported.
+- Settings saved in `localStorage`, so preferences persist in the browser.
+- Responsive layout with no external JavaScript dependencies.
 
-## 1. Getting Started
+## Getting Started
 
-You can use this in two ways:
+1. Download or clone this repository.
+2. Open `startpage.html` in a modern browser.
+3. Use the settings gear in the lower-right corner to choose a wallpaper and weather location.
 
-**A) Open it directly**
-Just double-click `startpage.html` to open it in your browser whenever you want it.
+You can also host the folder with any static file server and use the resulting URL as your browser homepage. A local file works for the core interface, but an internet connection is required for live weather data and city search. Alternatively, you can use the [GitHub Pages](https://amadelphous.github.io/glassboard-homepage/) version!
 
-**B) Set it as your homepage / new tab page**
-So it loads automatically. How to do this varies by browser:
+To use Startpage as a new-tab page, browser support varies. Chrome and Edge generally require a new-tab extension, while Firefox can use an extension such as New Tab Override or tweaks via autoconfig.js in the app folder.
 
-- **Chrome/Edge**: Settings → On Startup / New Tab, point it at the local file path of `startpage.html`.
-- **Firefox**: Firefox does NOT allow local files as the native New Tab page. You'll need an extension such as "New Tab Override" to point it at a local file, or an `autoconfig.js` workaround.
-- **Other browsers**: check their settings for "homepage" or "new tab page" and provide the file path to `startpage.html`.
+## Settings
 
-This step differs enough between browsers/OS setups that it's outside the scope of this README — a quick search for `"[your browser] custom new tab local file"` will get you there.
+Open the settings gear to access the unified settings modal:
 
----
+![About Page](./.assets/about.png)
 
-## 2. Folder Structure
+### Wallpaper
 
-Keep this structure intact — the page expects it:
+Choose from the 30 wallpapers that come bundled with the Startpage! The selected image is applied immediately and remembered in the browser.
 
-```
-├── js/                    # all .js scripts (clock.js, weather.js, etc.)
-├── svg/                   # all .svg icons used by quick links and widgets
-├── startpage.html
-├── startpage.css
-├── wallpaper.jpg
-└── outfit_variable.ttf
-```
+![Wallpaper Selector](./.assets/wallpapers.png)
 
-If you rename or move any of these folders, you'll need to update the matching paths in `startpage.html` and `startpage.css`. If you replace the quick links and their `.svg` icons, make sure the paths line up to where you saved the new icons.
+### Weather
 
----
+Search for a city by name. Search results are fetched from the Open-Meteo Geocoding API after a short debounce, and selecting a result stores its coordinates locally. You can also change the temperature unit and choose whether the city name appears on the widget.
 
-## 3. Changing the Wallpaper
+The default location is Paris, France. Weather data is refreshed when the page loads and every 15 minutes afterwards. The weather widget shows an error state if the API cannot be reached.
 
-**Simplest method:** replace `wallpaper.jpg` with your own image, keeping the exact same filename.
+![City Selector](./.assets/weather.png)
 
-**Alternatively:** use a different filename/format and update the reference in `startpage.css`, marked by the comment, in the `body`'s `background-image` rule.
+Changes made in the modal can be committed with **Save & Exit**. **Cancel**, the close button, Escape, and clicking the backdrop restore the values from before the modal was opened.
 
----
+## Timer
 
-## 4. Changing Quick Links
+Use the panel at the bottom of the page to run either a stopwatch or a countdown:
 
-Quick links live in `startpage.html`. Each one looks like this:
+- Enter a duration as `HH:MM:SS`, or six digits such as `013000`.
+- Select **Start**, **Pause**, or **Reset**.
+- Use **PiP** to keep the timer visible in a separate browser window when the browser supports Picture-in-Picture.
 
-```html
-<a class="quicklink" href="https://www.website.com" title="Website" draggable="false">
-  <div class="icon-square"><img src="svg/website.svg" alt="Website" draggable="false"></div>
-  <span class="label">Website</span>
-</a>
-```
+Timer state is saved in `localStorage` and synchronized between tabs in the same browser profile.
 
-To customize:
+## Customizing Quick Links
 
-| Attribute   | What it controls                                 |
-|-------------|---------------------------------------------------|
-| `href`      | The URL the link goes to                           |
-| `title`     | Tooltip text on hover                               |
-| `src`       | Path to the icon (see below)                        |
-| `alt`       | Accessibility text, should match the site name      |
-| label text  | The text shown under the icon                       |
+Quick links are defined in `startpage.html`. For now, there is no way to change them from within the page itself, only by editing the code. However, in-app changing of the quicklinks is planned for a later update.
 
-You'll need to source your own icons — they are **not** included/generated for you. `.svg` is recommended since it's vector-based and scales cleanly at any size, but other image formats (`.png`, `.jpg`) will also work.
+## Project Structure
 
-Place icon files in the `./svg/` folder to match the existing structure. When replacing the icons, make sure the filepath is correct — if they're in the `/svg/` folder, it will be `./svg/file.svg`.
-
----
-
-## 5. Changing the Weather Widget
-
-Click the weather widget to open a popup where you can enter new coordinates (latitude, longitude), then refresh the page.
-
-By default this repo ships with coordinates set to Paris, France as a neutral placeholder — change it to your own location the first time you use it. Alternatively, you can also change the default coordinates from Paris to another location by editing them in `weather.js`.
-
-![Modal Preview](./.assets/modal.png)
-
-**Units:** Temperatures default to Celsius. To switch to Fahrenheit, open `weather.js` and:
-1. Add `&temperature_unit=fahrenheit` to the end of the API URL inside `updateWeather()`.
-2. Change both `°C` strings (the current temp line, and the `H:`/`L:` line right below it) to `°F`.
-
-Both steps are required — changing only the label without changing the API call will display Fahrenheit-range numbers mislabeled as Celsius, or vice versa.
-
----
-
-## 6. Changing the Clock Format (12h / 24h)
-
-The clock format is hardcoded in `js/clock.js`. Open that file and look for wherever the time is formatted, and adjust the 12h/24h logic and AM/PM display there directly.
-
-To switch from 24h to 12h with AM/PM, replace the hour line and the line that sets the `#clock` text with something like:
-
-```javascript
-let hours = now.getHours();
-const ampm = hours >= 12 ? 'PM' : 'AM';
-hours = hours % 12;
-hours = hours ? hours : 12; // 0 should display as 12
-const hh = String(hours).padStart(2, '0');
-...
-document.getElementById('clock').textContent = `${hh}:${mm} ${ampm}`;
+```text
+startpage.html       Main page markup and settings modal
+css/                 Component stylesheets
+js/                  Clock, weather, timer, modal, wallpaper, and UI logic
+svg/                 Icons used by the page
+wallpapers/          Bundled wallpaper images
+LICENSE              MIT License for the project
+OFL.txt              SIL Open Font License for the Outfit font
 ```
 
-No changes to `startpage.css` are required for this — the `#clock` style just sizes/colors whatever text is inside it.
+Keep the relative paths and folder structure intact when moving the project.
 
-> **Note:** Adding " AM"/" PM" makes the clock text wider than before, so it may look slightly off-center compared to the date/search bar under it once it's running. If that bugs you, the quickest fix is adding `text-align: center;` to the `#clock` rule in `startpage.css`, or just tweaking the `font-size` on `#clock` down a bit until it looks balanced again.
+## APIs and Credits
 
----
+Weather forecasts come from the [Open-Meteo Weather API](https://open-meteo.com/) and city search uses the [Open-Meteo Geocoding API](https://open-meteo.com/en/docs/geocoding-api). Open-Meteo forecast data is provided under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.en).
 
-## 7. Font
+The interface uses the [Outfit font](https://fonts.google.com/specimen/Outfit), distributed under the SIL Open Font License. Wallpaper imagery includes public domain space imagery from [NASA and STScI](https://images.nasa.gov/). See `OFL.txt` for the bundled font license.
 
-This project uses **Outfit**, licensed under the SIL Open Font License (OFL). The font file (`outfit_variable.ttf`) is included in this repo and referenced via `@font-face` in `startpage.css` — don't delete or move it without also updating that reference.
+## License
 
-See `OFL.txt` for the full font license text.
+The project code is available under the [MIT License](LICENSE). See the licenses and attribution above for bundled fonts, data, and imagery that have separate terms.
 
----
+## Repository
 
-## 8. License
-
-This project is licensed under the **MIT License** — see `LICENSE` for the full text. In short: you're free to use, modify, and distribute this however you like, including for personal or commercial purposes, with no warranty provided.
-
----
-
-## 9. That's It
-
-Everything else — colors, fonts, layout, spacing — lives in `startpage.css` and `startpage.html` and is fair game to edit directly. There's no build process or settings panel; you're editing the source files themselves. Have fun with it.
+View the project on [GitHub](https://github.com/amadelphous/glassboard-homepage).
 
 With Love,
 Amadelphous

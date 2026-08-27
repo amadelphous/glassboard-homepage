@@ -1,0 +1,265 @@
+/* --- Dialog base and closed state --- */
+dialog.settings-modal:not([open]) {
+  display: none;
+}
+
+dialog.settings-modal {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: 90vw;
+  height: 60vh;
+  max-width: 720px;
+  max-height: 85vh;
+  overflow: hidden;
+  font-family: inherit;
+
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #27272a;
+  border-radius: 12px;
+  background: #121214;
+  color: #f4f4f5;
+  padding: 0;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+
+  /* Closed state visual properties. */
+  opacity: 0;
+  transform: scale(0.95);
+
+  /* Transition definitions, including discrete display changes where supported. */
+  transition:
+    opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    overlay 0.2s allow-discrete,
+    display 0.2s allow-discrete;
+}
+
+  dialog.settings-modal button,
+  dialog.settings-modal input,
+  dialog.settings-modal select {
+    font-family: inherit;
+  }
+
+/* --- Open state --- */
+dialog.settings-modal[open] {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* --- Entry state --- */
+@starting-style {
+  dialog.settings-modal[open] {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+/* ==========================================
+   Backdrop Animation
+   ========================================== */
+
+dialog.settings-modal::backdrop {
+  background: rgba(0, 0, 0, 0);
+  backdrop-filter: blur(0px);
+
+  transition:
+    background 0.2s ease-out,
+    backdrop-filter 0.2s ease-out,
+    overlay 0.2s allow-discrete,
+    display 0.2s allow-discrete;
+}
+
+dialog.settings-modal[open]::backdrop {
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+}
+
+@starting-style {
+  dialog.settings-modal[open]::backdrop {
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0px);
+  }
+}
+
+/* --- Header --- */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid #27272a;
+  flex-shrink: 0;
+  font-family: inherit;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.close-x-btn {
+  background: none;
+  border: none;
+  color: #a1a1aa;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.close-x-btn:hover {
+  color: #fff;
+}
+
+/* --- Main area: sidebar + content, side by side --- */
+.modal-main {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  font-family: inherit;
+}
+
+.modal-sidebar {
+  width: 180px;
+  flex-shrink: 0;
+  border-right: 1px solid #27272a;
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-family: inherit;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: none;
+  border: none;
+  color: #a1a1aa;
+  font-size: 0.95rem;
+  text-align: left;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  border-radius: 0 6px 6px 0;
+}
+
+.nav-item img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.nav-item:hover {
+  color: #f4f4f5;
+  background: #1c1c1f;
+}
+
+.nav-item.active {
+  color: #f4f4f5;
+  background: #1c1c1f;
+  border-left: 3px solid #6366f1;
+  padding-left: calc(1rem - 3px);
+}
+
+.modal-content {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  min-height: 0;
+  font-family: inherit;
+}
+
+.settings-panel {
+  display: none;
+}
+
+.settings-panel.active {
+  display: block;
+}
+
+/* --- Setting rows (used inside panels, e.g. Weather/etc) --- */
+.setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+  font-family: inherit;
+}
+
+.setting-row input[type="text"],
+.setting-row select {
+  background: #18181b;
+  border: 1px solid #3f3f46;
+  color: #f4f4f5;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  outline: none;
+}
+
+/* --- Footer --- */
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #27272a;
+  flex-shrink: 0;
+  font-family: inherit;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  background: #27272a;
+  color: #e4e4e7;
+}
+
+.btn-primary {
+  background: #6366f1;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #4f46e5;
+}
+
+/* --- Wallpaper panel content --- */
+.wallpaper-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.wallpaper-card {
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.wallpaper-card img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+}
+
+.wallpaper-card.selected {
+  border-color: var(--accent-color, #4a90e2);
+}
+
+.wallpaper-name {
+  display: block;
+  font-size: 0.75rem;
+  padding: 4px 2px;
+}

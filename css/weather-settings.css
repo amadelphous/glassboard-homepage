@@ -1,0 +1,306 @@
+.wx-current {
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+
+.wx-current-label {
+  color: rgba(255, 255, 255, 0.55);
+  margin-right: 6px;
+}
+
+.wx-current-value {
+  color: #fff;
+  font-weight: 600;
+}
+
+.wx-search-wrap {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.wx-search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.wx-search-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px 12px 40px;
+  border: none;
+  border-radius: 10px;
+  background: #6366f1;
+  color: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+}
+
+.wx-search-input::placeholder {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.wx-search-input:focus {
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.5);
+}
+
+.wx-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.wx-grid-status {
+  grid-column: 1 / -1;
+  padding: 24px 0;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 13px;
+}
+
+.wx-card {
+  position: relative;
+  background: #1c1c22;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding: 14px 16px;
+  transition: border-color 0.15s ease;
+}
+
+.wx-card:hover {
+  border-color: rgba(99, 102, 241, 0.4);
+}
+
+.wx-card--selected {
+  border-color: #6366f1;
+}
+
+.wx-card-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.wx-card-meta {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.5;
+}
+
+.wx-card-select {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  border: none;
+  border-radius: 999px;
+  padding: 4px 12px;
+  background: #6366f1;
+  color: #fff;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.wx-card-select:hover {
+  background: #5457e5;
+}
+
+.wx-card--selected .wx-card-select {
+  background: #22c55e;
+}
+
+/* Checkbox label and control row in the settings panel. */
+.wx-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(8px, 0.5vw + 4px, 12px);
+  padding: clamp(8px, 0.6vh + 4px, 12px) clamp(10px, 0.6vw + 6px, 14px);
+  border-radius: clamp(8px, 0.5vw + 4px, 12px);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  font-size: clamp(0.8rem, 0.25vw + 0.75rem, 0.95rem);
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  margin-bottom: clamp(8px, 1vh, 12px); /* leave room before the next setting */
+}
+
+/* Keep the checkbox aligned to the right edge of the row. */
+.wx-toggle input[type="checkbox"] {
+  order: 2;
+  cursor: pointer;
+  margin: 0;
+}
+
+.wx-toggle:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Unit selector row inside the settings panel. */
+.wx-unit-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(8px, 0.5vw + 4px, 12px);
+  padding: clamp(8px, 0.6vh + 4px, 12px) clamp(10px, 0.6vw + 6px, 14px);
+  border-radius: clamp(8px, 0.5vw + 4px, 12px);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  font-size: clamp(0.8rem, 0.25vw + 0.75rem, 0.95rem);
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  margin-bottom: clamp(8px, 1vh, 12px);
+}
+
+.wx-unit-toggle:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Keep the current-city readout separated from adjacent controls. */
+.wx-current {
+  margin-bottom: clamp(10px, 1.2vh, 14px);
+}
+
+/* Unit selection controls (Celsius / Fahrenheit). */
+.wx-unit-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: rgba(0, 0, 0, 0.2);
+  color: inherit;
+  font-family: inherit;
+  font-size: clamp(0.75rem, 0.2vw + 0.7rem, 0.88rem);
+  font-weight: 600;
+  padding: clamp(4px, 0.3vh + 2px, 6px) clamp(8px, 0.4vw + 4px, 12px);
+  border-radius: clamp(6px, 0.4vw + 2px, 8px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  outline: none;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.wx-unit-select:hover,
+.wx-unit-select:focus {
+  background: rgba(0, 0, 0, 0.35);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+/* Keep native option text readable in dark mode. */
+.wx-unit-select option {
+  background: #1e1e24;
+  color: #ffffff;
+}
+
+/* Apply the same color treatment to the control and its option list. */
+.wx-unit-select,
+.wx-unit-select::picker(select) {
+  appearance: base-select;
+}
+
+/* Closed unit selector. */
+.wx-unit-select {
+  background: #1c1c1e;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+/* Unit selector option list. */
+.wx-unit-select::picker(select) {
+  background: #1c1c1e;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  padding: 4px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Individual unit option. */
+.wx-unit-select option {
+  padding: 10px 12px;
+  border-radius: 6px;
+  color: #fff;
+}
+
+.wx-unit-select option:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Highlight the selected unit consistently with other selected controls. */
+.wx-unit-select option:checked {
+  background: #6d5ef8; /* matches the selected weather-card state */
+  color: #fff;
+}
+
+/* Hide the native checkmark when the browser exposes one. */
+.wx-unit-select option::checkmark {
+  display: none;
+}
+
+/* Align the unit label and toggle button on one row. */
+.wx-unit-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 12px;
+}
+
+.wx-unit-toggle span {
+  color: #e0e0e0;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* Button that switches between Celsius and Fahrenheit. */
+.wx-unit-btn {
+  background: #2b2b36;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  outline: none;
+}
+
+/* Hover state for the unit toggle. */
+.wx-unit-btn:hover {
+  background: #6366f1;
+  border-color: #6366f1;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+}
+
+/* Pressed state. */
+.wx-unit-btn:active {
+  transform: scale(0.97);
+}
+
+.wx-divider {
+  border: none;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.1); /* subtle divider */
+  margin: 1.25rem 0; /* separate the two settings groups */
+  width: 100%;
+}

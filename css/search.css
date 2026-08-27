@@ -1,0 +1,57 @@
+/* ---------------------------------------------------------------------
+   SEARCH FORM
+   ---------------------------------------------------------------------
+   The search bar in the hero section. form#search-form constrains the
+   overall width; #search-wrapper gives the search icon (#search-icon) a
+   positioning anchor to sit on top of the input. */
+form#search-form {
+  width: 100%;
+  max-width: 560px;
+  padding: 0 20px;
+}
+
+#search-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* The search text input — pill-shaped, with left padding reserved for
+   the search icon layered on top of it. Form controls don't inherit
+   font-family from the page by default, so it's set explicitly here. */
+#search {
+  width: 100%;
+  padding: 14px 20px 14px 46px;
+  font-family: "Outfit", sans-serif;
+  font-size: 1.05rem;
+  font-style: normal;
+  border: none;
+  border-radius: 30px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.9);
+  color: #222;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+/* Placeholder text styling (e.g. "Search the web..."). */
+#search::placeholder {
+  font-weight: 700;
+  font-style: normal;
+  opacity: 0.7;
+}
+
+/* Magnifying-glass icon layered inside the left side of the input.
+   pointer-events: none lets clicks pass through to the input beneath. */
+#search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+
+/* Input turns fully opaque white while focused. */
+#search:focus {
+  background: #fff;
+}

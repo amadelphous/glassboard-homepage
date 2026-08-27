@@ -1,4 +1,4 @@
-// Dynamic Tab Panel Toggles
+// Shared interactions for collapsible panels and hero-area scroll state.
 function setupTabToggle(toggleBtnId, panelId) {
   const btn = document.getElementById(toggleBtnId);
   const panel = document.getElementById(panelId);
@@ -10,22 +10,19 @@ function setupTabToggle(toggleBtnId, panelId) {
 
 setupTabToggle('timer-toggle', 'timer-panel');
 
-// Auto-hide Scroll Hint & Side Widgets on Scroll
-const scrollHint = document.getElementById('scroll-hint');
-const timerPanel = document.getElementById('timer-panel');
-
 window.addEventListener('scroll', () => {
+  const activationZone = document.querySelector('.settings-trigger-zone');
+  const scrollHint = document.getElementById('scroll-hint');
+  const timerPanel = document.getElementById('timer-panel');
+
   if (window.scrollY > 50) {
     scrollHint?.classList.add('hidden');
     timerPanel?.classList.add('hidden');
+    activationZone?.classList.add('is-scrolled');
   } else {
     scrollHint?.classList.remove('hidden');
     timerPanel?.classList.remove('hidden');
+    activationZone?.classList.remove('is-scrolled');
   }
 });
 
-// This function is what enables the UI to update and function properly.
-// I seriously recommend not editing this function even if you know what you are doing.
-// Breaking this function will cause the UI to stop working as a whole and will
-// require grabbing a clean copy of ui.js from the repository and replacing the broken
-// one with it. Breaking this function subsequently breaks everything else tied to it.

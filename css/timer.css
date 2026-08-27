@@ -1,0 +1,180 @@
+/* ---------------------------------------------------------------------
+   TIMER PANEL (drawer) — SOLE OWNER OF THE GLASS EFFECT
+   ---------------------------------------------------------------------
+   This is the only element in the whole widget that paints a
+   background, backdrop-filter, border, or box-shadow. Everything else
+   inside it (#timer-toggle, #timer-label-icon, inputs, buttons) is
+   just content sitting on top of this one glass surface. That's what
+  keeps the panel visually continuous because there is only one glass edge
+  to render.
+
+   Fixed to the bottom-left of the screen and slid off-screen by
+   default (translateX(-100%)); only the 28px toggle area peeks out
+   from the left edge. JS toggles `.open` to slide the drawer into
+   view, and `.hidden` to fade the whole thing out while the page is
+   scrolled past the hero. */
+#timer-panel {
+  position: fixed;
+  bottom: 15px;
+  left: 0;
+  width: 328px; /* 320px content plus the 28px toggle strip */
+  height: 73px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  text-align: center;
+
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-left: none !important;
+  border-radius: 0 14px 14px 0;
+  box-shadow: 4px 0 14px rgba(0, 0, 0, 0.15), 0 4px 14px rgba(0, 0, 0, 0.3);
+
+  padding: 12px 44px 12px 20px;
+  transform: translateX(calc(-100% + 28px));
+  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 15;
+  opacity: 1;
+  visibility: visible;
+  box-sizing: border-box;
+}
+
+/* Open state: slide the complete drawer into view. */
+#timer-panel.open {
+  transform: translateX(0);
+}
+
+/* Fades the whole drawer out (and disables clicks) once the page has
+   scrolled past the hero section, regardless of open/closed state. */
+#timer-panel.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------
+  TOGGLE BUTTON — transparent control over the panel surface.
+   ---------------------------------------------------------------------
+  The arrow sits on top of the panel's existing glass surface and does not
+  add a second background or border. */
+#timer-toggle {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 28px;
+  height: 100%;
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 1.3rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+/* Provide hover feedback without changing the panel surface. */
+#timer-toggle:hover {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* ---------------------------------------------------------------------
+  LABEL ICON — a small badge positioned just outside the drawer.
+   --------------------------------------------------------------------- */
+#timer-label-icon {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 12px);
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  padding: 5px;
+  box-sizing: border-box;
+
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 6px;
+
+  object-fit: contain;
+  pointer-events: none;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Hide the collapsed-drawer label while the drawer is open or suppressed. */
+#timer-panel.open #timer-label-icon,
+#timer-panel.hidden #timer-label-icon {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* ---------------------------------------------------------------------
+   PANEL CONTENTS (time display + controls)
+   --------------------------------------------------------------------- */
+.timer-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 24px;
+}
+
+/* Large countdown readout inside the panel (e.g. "00:00:00"). */
+#timer-display {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-family: inherit;
+  font-size: 30px;
+  font-weight: 700;
+  width: 140px;
+  text-align: center;
+  cursor: text;
+}
+
+#timer-display:focus {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+}
+
+#timer-display:disabled {
+  cursor: default;
+  color: #fff;
+}
+
+/* Lays out the timer control buttons in a 2-column grid. */
+.timer-btn-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+}
+
+/* Individual timer control button. */
+.timer-btn {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  text-align: center;
+}
+
+.timer-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+}

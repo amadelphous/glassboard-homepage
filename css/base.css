@@ -1,0 +1,71 @@
+/* ---------------------------------------------------------------------
+   VARIABLE FONT: "Outfit"
+   ---------------------------------------------------------------------
+   Loads the "Outfit" variable font from a local .ttf so it can be used
+   anywhere below via font-family: "Outfit". */
+@font-face {
+  font-family: "Outfit";
+  src: url("./outfit_variable.ttf") format("truetype-variations"),
+       url("./outfit_variable.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------------------------------------------------------------------
+   GLOBAL RESET
+   ---------------------------------------------------------------------
+   Applies to every element. Strips default browser margin/padding and
+   switches box-sizing to border-box so width/height calculations include
+   padding and border. Also disables text selection site-wide. */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Re-enable selection inside inputs and textareas so typing/selecting
+   text in form fields works as expected. */
+input,
+textarea {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Stops the browser's native "ghost image" drag preview when an image is
+   click-dragged, since none of the icons/favicons here are draggable. */
+img {
+  -webkit-user-drag: none;
+}
+
+/* Sets the base color of the background to a 
+dark gray to make any FOUCs softer. */
+html {
+  background-color: #222220;
+}
+
+/* ---------------------------------------------------------------------
+   PAGE BACKGROUND / BASE TYPOGRAPHY
+   ---------------------------------------------------------------------
+   Full-page wallpaper background plus the default font, text color, and
+   sizing/overflow behavior inherited by the rest of the page. */
+body {
+  position: relative;
+  min-height: 100vh;
+  width: 100vw;
+  background-image: var(--background-image);
+  /* The boot script and wallpaper settings write this custom property. */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  font-family: "Outfit", sans-serif;
+  color: #fff;
+  overflow-x: hidden;
+}
