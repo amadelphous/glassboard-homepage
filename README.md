@@ -42,6 +42,18 @@ Choose from the 30 wallpapers that come bundled with the Startpage! The selected
 
 ![Wallpaper Selector](./.assets/wallpapers.png)
 
+In there, you can find gradients such as Blackberry,
+
+![Blackberry](./.assets/blackberry.png)
+
+Handmade designs like Pinkie,
+
+![Pinkie](./.assets/pinkie.png)
+
+Or NASA-sourced beauties like Messier 106!
+
+![Messier 106](./.assets/messier106.png)
+
 ### Weather
 
 Search for a city by name. Search results are fetched from the Open-Meteo Geocoding API after a short debounce, and selecting a result stores its coordinates locally. You can also change the temperature unit and choose whether the city name appears on the widget.
