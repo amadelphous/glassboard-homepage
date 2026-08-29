@@ -37,10 +37,24 @@
   const STORAGE_KEY = "weatherSettings.selectedCity";
   const CITY_NAME_TOGGLE_KEY = "weatherSettings.showCityName";
   const TEMP_UNIT_KEY = "weatherSettings.temperatureUnit";
+  const LAT_MIN = -90;
+  const LAT_MAX = 90;
+  const LON_MIN = -180;
+  const LON_MAX = 180;
 
   // Mirrors DEFAULT_LAT / DEFAULT_LON in weather.js.
   const FALLBACK_LAT = 48.8566;
   const FALLBACK_LON = 2.3522;
+
+  function sanitizeCoordinate(rawValue, min, max) {
+    const value = Number(rawValue);
+
+    if (!Number.isFinite(value) || value < min || value > max) {
+      return null;
+    }
+
+    return value;
+  }
 
   class WeatherCitySettings {
     constructor(container, options = {}) {
@@ -200,12 +214,10 @@
     resolveCurrentCity() {
       if (this.selectedCity) return this.selectedCity;
 
-      const storedLat = parseFloat(localStorage.getItem("startpage_weather_lat"));
-      const storedLon = parseFloat(localStorage.getItem("startpage_weather_lon"));
-      const hasStoredCoords = !Number.isNaN(storedLat) && !Number.isNaN(storedLon);
-
-      const lat = hasStoredCoords ? storedLat : FALLBACK_LAT;
-      const lon = hasStoredCoords ? storedLon : FALLBACK_LON;
+      const storedLat = sanitizeCoordinate(localStorage.getItem("startpage_weather_lat"), LAT_MIN, LAT_MAX);
+      const storedLon = sanitizeCoordinate(localStorage.getItem("startpage_weather_lon"), LON_MIN, LON_MAX);
+      const lat = storedLat ?? FALLBACK_LAT;
+      const lon = storedLon ?? FALLBACK_LON;
 
       const match = DEFAULT_CITIES.find(
         (c) => this.coordsMatch(c.lat, lat) && this.coordsMatch(c.lon, lon)
@@ -304,9 +316,17 @@
     }
 
     pushToWeatherWidget(city) {
+      const safeLat = sanitizeCoordinate(city.lat, LAT_MIN, LAT_MAX);
+      const safeLon = sanitizeCoordinate(city.lon, LON_MIN, LON_MAX);
+
+      if (safeLat === null || safeLon === null) {
+        console.error("Refusing to save invalid weather coordinates:", city);
+        return;
+      }
+
       try {
-        localStorage.setItem("startpage_weather_lat", city.lat);
-        localStorage.setItem("startpage_weather_lon", city.lon);
+        localStorage.setItem("startpage_weather_lat", String(safeLat));
+        localStorage.setItem("startpage_weather_lon", String(safeLon));
       } catch (err) {
         console.error("Could not update widget location in localStorage:", err);
         return;
