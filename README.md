@@ -32,7 +32,7 @@ To use Startpage as a new-tab page, browser support varies. Chrome and Edge gene
 
 ## Settings
 
-Open the settings gear to access the unified settings modal:
+Open the settings gear located in the bottom right corner of the screen to access the unified settings modal:
 
 ![About Page](./.assets/about.png)
 
