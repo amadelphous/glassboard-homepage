@@ -7,6 +7,18 @@ const closeXBtn = document.getElementById('close-x-btn');
 // Settings state captured before the modal opens, used by Cancel and Esc.
 let settingsSnapshot = null;
 
+function sanitizeCoordinate(rawValue, axis) {
+  const min = axis === 'latitude' ? -90 : -180;
+  const max = axis === 'latitude' ? 90 : 180;
+  const value = Number(rawValue);
+
+  if (!Number.isFinite(value) || value < min || value > max) {
+    return null;
+  }
+
+  return value;
+}
+
 function captureSettings() {
   return {
     wallpaperPath: localStorage.getItem('startpage_wallpaper_path') || window.wallpapers[0].filepath,
@@ -45,13 +57,17 @@ function applySettings(settings) {
   } else {
     localStorage.removeItem('weatherSettings.selectedCity');
   }
-  if (settings.weatherLat != null) {
-    localStorage.setItem('startpage_weather_lat', settings.weatherLat);
+
+  const safeLat = sanitizeCoordinate(settings.weatherLat, 'latitude');
+  const safeLon = sanitizeCoordinate(settings.weatherLon, 'longitude');
+
+  if (safeLat !== null) {
+    localStorage.setItem('startpage_weather_lat', String(safeLat));
   } else {
     localStorage.removeItem('startpage_weather_lat');
   }
-  if (settings.weatherLon != null) {
-    localStorage.setItem('startpage_weather_lon', settings.weatherLon);
+  if (safeLon !== null) {
+    localStorage.setItem('startpage_weather_lon', String(safeLon));
   } else {
     localStorage.removeItem('startpage_weather_lon');
   }

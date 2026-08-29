@@ -2,6 +2,10 @@
 
 const DEFAULT_LAT = 48.8566;
 const DEFAULT_LON = 2.3522;
+const LAT_MIN = -90;
+const LAT_MAX = 90;
+const LON_MIN = -180;
+const LON_MAX = 180;
 
 const weatherCodeMap = {
   0: "Clear sky", 1: "Mostly clear", 2: "Partly cloudy", 3: "Overcast",
@@ -20,9 +24,19 @@ function getTemperatureUnit() {
   return localStorage.getItem(TEMP_UNIT_KEY) === 'fahrenheit' ? 'fahrenheit' : 'celsius';
 }
 
+function sanitizeCoordinate(rawValue, min, max, fallback) {
+  const value = Number(rawValue);
+
+  if (!Number.isFinite(value) || value < min || value > max) {
+    return fallback;
+  }
+
+  return value;
+}
+
 function getCoords() {
-  const lat = localStorage.getItem('startpage_weather_lat') || DEFAULT_LAT;
-  const lon = localStorage.getItem('startpage_weather_lon') || DEFAULT_LON;
+  const lat = sanitizeCoordinate(localStorage.getItem('startpage_weather_lat'), LAT_MIN, LAT_MAX, DEFAULT_LAT);
+  const lon = sanitizeCoordinate(localStorage.getItem('startpage_weather_lon'), LON_MIN, LON_MAX, DEFAULT_LON);
   return { lat, lon };
 }
 
@@ -88,7 +102,9 @@ async function updateWeather() {
   const unitParam = unit === 'fahrenheit' ? '&temperature_unit=fahrenheit' : '';
   const symbol = unit === 'fahrenheit' ? '°F' : '°C';
   try {
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=auto${unitParam}`;
+    const safeLat = encodeURIComponent(String(lat));
+    const safeLon = encodeURIComponent(String(lon));
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${safeLat}&longitude=${safeLon}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=auto${unitParam}`;
     const res = await fetch(url);
     if (!res.ok) throw new Error(`Weather API responded ${res.status}`);
 
